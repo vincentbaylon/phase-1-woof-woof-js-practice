@@ -74,10 +74,6 @@ document.querySelector('#good-dog-filter').addEventListener('click', (e) => {
     }
 })
 
-function filterGoodDog() {
-    
-}
-
 function fetchGoodDogs(cb) {
     fetch('http://localhost:3000/pups')
     .then(res => res.json())

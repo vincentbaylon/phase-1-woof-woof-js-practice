@@ -63,18 +63,20 @@ function patchRequest(id, isGoodDog) {
 
 //Step 5
 document.querySelector('#good-dog-filter').addEventListener('click', (e) => {
-    let dogBar = document.querySelector('#dog-bar')
+    document.querySelector('#dog-bar').innerHTML = ''
 
     if (e.target.innerText === 'Filter good dogs: OFF') {
-        dogBar.innerHTML = ''
         e.target.innerText = 'Filter good dogs: ON'
         fetchGoodDogs(renderDogBar)
     } else {
-        dogBar.innerHTML = ''
         e.target.innerText = 'Filter good dogs: OFF'
         fetchDogs(renderDogBar)
     }
 })
+
+function filterGoodDog() {
+    
+}
 
 function fetchGoodDogs(cb) {
     fetch('http://localhost:3000/pups')

@@ -1,8 +1,8 @@
 // Step 1
-function fetchDogs() {
+function fetchDogs(cb) {
     fetch('http://localhost:3000/pups')
     .then(res => res.json())
-    .then(json => json.forEach(renderDogBar))
+    .then(json => json.forEach(cb))
 }
 
 // Step 2
@@ -58,12 +58,36 @@ function patchRequest(id, isGoodDog) {
         })
     })
     .then(res => res.json())
-    .then(console.log)
+    .then(json => json)
 }
 
-// Initial Render
+//Step 5
+document.querySelector('#good-dog-filter').addEventListener('click', (e) => {
+    let dogBar = document.querySelector('#dog-bar')
+
+    if (e.target.innerText === 'Filter good dogs: OFF') {
+        dogBar.innerHTML = ''
+        e.target.innerText = 'Filter good dogs: ON'
+        fetchGoodDogs()
+    } else {
+        dogBar.innerHTML = ''
+        e.target.innerText = 'Filter good dogs: OFF'
+        fetchDogs(renderDogBar)
+    }
+})
+
+function fetchGoodDogs() {
+    fetch('http://localhost:3000/pups')
+    .then(res => res.json())
+    .then(json => {
+        let data = json.filter(dog => dog.isGoodDog === true)
+        data.forEach(renderDogBar)
+    })
+}
+
+// Initial Render 
 function initialRender() {
-    fetchDogs()
+    fetchDogs(renderDogBar)
 }
 
 initialRender()

@@ -68,7 +68,7 @@ document.querySelector('#good-dog-filter').addEventListener('click', (e) => {
     if (e.target.innerText === 'Filter good dogs: OFF') {
         dogBar.innerHTML = ''
         e.target.innerText = 'Filter good dogs: ON'
-        fetchGoodDogs()
+        fetchGoodDogs(renderDogBar)
     } else {
         dogBar.innerHTML = ''
         e.target.innerText = 'Filter good dogs: OFF'
@@ -76,12 +76,12 @@ document.querySelector('#good-dog-filter').addEventListener('click', (e) => {
     }
 })
 
-function fetchGoodDogs() {
+function fetchGoodDogs(cb) {
     fetch('http://localhost:3000/pups')
     .then(res => res.json())
     .then(json => {
         let data = json.filter(dog => dog.isGoodDog === true)
-        data.forEach(renderDogBar)
+        data.forEach(cb)
     })
 }
 
